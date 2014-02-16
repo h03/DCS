@@ -3,6 +3,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+/*
+ * Master接收CacheServer发送的状态信息
+ * 线程由ReceiveFromCache创建并启动
+ */
 
 public class ReFromCacheThread extends Thread {
 	private Socket connectToCache;

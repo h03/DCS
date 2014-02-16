@@ -7,7 +7,11 @@ import java.net.Socket;
 
 public class RespondToClient {
 	
-
+/*
+ * Master等待UserClient的询问请求
+ * 为新的请求建立连接
+ * 并返回计算结果给对应的UserClient
+ */
 	
 	public static void main(String[] args) {
 		msChangeTargetIPToUC("127.0.1.1");

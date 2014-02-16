@@ -2,6 +2,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/*
+ * Master等待CacheServer的连接请求，并创建接收线程。
+ * 端口号：5700
+ * 与CacheServer中的FeedbackToMaster对应。
+ */
 
 public class ReceiveFromCache {
 	

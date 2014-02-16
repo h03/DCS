@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 import java.net.*;
 public class GetMyIP {
 
-	/**
-	 * @param args
+	/* 获取本机的外网IP
+	 * 这是一个单独的测试程序
+	 * 不在DCS系统范围内
+	 * 可忽略
 	 */
 	public static void main(String[] args) throws Exception {
 		  //

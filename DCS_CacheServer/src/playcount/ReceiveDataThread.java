@@ -5,6 +5,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+ /*
+  *  CacheServer接收源客户端数据
+  *  由ReceiveStreamData类创建和启动线程
+  */
+
 public class ReceiveDataThread extends Thread {
 	private Socket connectToClient;
 	private DataInputStream fromUClient;
@@ -30,7 +35,7 @@ public class ReceiveDataThread extends Thread {
 				if(!strData.equals("EndInput") && !strData.equals("NewStart")){
 			//		System.out.println(strData);
 					timeStamp = GetNowTime.getNowTime();
-					userKey = userID + ":" + timeStamp;
+					userKey = userID + "-" + timeStamp;  // 以用户ID加时间戳作为Redis中的key
 					System.out.println("UserKey is " +  userKey);
 					RedisOperation.redisPutLine(userKey,strData);
 					System.out.println("Put successfully !");

@@ -9,8 +9,9 @@ import redis.clients.jedis.Jedis;
 
 public class play01 {
 
-	/**
-	 * @param args
+	/*
+	 * 一个单独运行的测试程序
+	 * 可忽略
 	 */
 	public static void readByLines(String FileName){
 		File file = new File(FileName);

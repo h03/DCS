@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
 
+/*
+ * UserClient读取文本信息
+ * 并将数据发送给对应的CacheServer
+ */
 
 
 public class SendStreamData {

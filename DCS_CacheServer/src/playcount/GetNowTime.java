@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class GetNowTime {
 
-	/**
-	 * @param args
+	/* 获取系统现在的时间戳
+	 * 单独运行的测试程序
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

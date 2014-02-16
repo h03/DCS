@@ -3,6 +3,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+/*
+ * Master接收UserClient发来的目标存储节点询问请求
+ * 线程由RespondToClient创建并启动
+ */
 
 public class ReceiveFromClient extends Thread {
 	private Socket connectToClient;

@@ -7,13 +7,17 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+
+/*
+ * UserClient向Master询问目标存储节点地址
+ * 端口号为：5600
+ * 与MasterServer中的RespondToClient对应
+ */
+
 public class TargetNode {
 
 	private static Socket connectToMaster;
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ucTargetNode("localhost");

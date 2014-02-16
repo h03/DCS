@@ -6,12 +6,17 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+
+/* CacheServer向Master发送本地服务器的运行状态
+ * 端口号：5700
+ * 对应Master程序中的ReceiveFromCache
+ */
+
 public class FeedbackToMaster {
 	
 public static void main(String[] srgs) {
 	csFeedbackToMaster("127.0.0.1");
 	}
-
 
     // 获取本机IP地址
 	public static String csGetLocalIP() {

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
+/*
+ * UserClient持续侦听Master的目标存储节点改变的消息
+ */
 
 public class ReceiveFromMaster {
 
