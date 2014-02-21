@@ -37,7 +37,8 @@ public class ReceiveDataThread extends Thread {
 					timeStamp = GetNowTime.getNowTime();
 					userKey = userID + "-" + timeStamp;  // 以用户ID加时间戳作为Redis中的key
 					System.out.println("UserKey is " +  userKey);
-					RedisOperation.redisPutLine(userKey,strData);
+					RedisOperation.redisSetLine(userKey,strData); // 将userKey和原始数据按String类型key-value存入redis
+					RedisOperation.redisZaddLine("keySet", timeStamp, userKey); // 将userKey按timeStamp排序存入到keySet中
 					System.out.println("Put successfully !");
 					temp = RedisOperation.redisGetLine(userKey).toString();
 					System.out.println(temp);

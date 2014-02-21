@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.generated.master.table_jsp;
 
 // HBase多线程并行插入数据
 
-public class BatchPutData {
+public class HbaseBatchPutData {
     static Configuration hbaseConfig = null;
    public static HTablePool pool = null;
    public static HTableFactory factory;   //  @@@@@@

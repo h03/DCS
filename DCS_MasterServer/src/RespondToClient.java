@@ -14,8 +14,8 @@ public class RespondToClient {
  */
 	
 	public static void main(String[] args) {
-		msChangeTargetIPToUC("127.0.1.1");
-	//	msRespondToClient();
+	//	msChangeTargetIPToUC("127.0.1.1");
+		msRespondToClient();
 	}
 
 	public static void msRespondToClient() {
