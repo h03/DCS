@@ -30,7 +30,7 @@ public class GetCacheServerState {
 	
 	
 	public static String[] cacheGetServerState() {
-		
+		return null;
 	}
 	
 
