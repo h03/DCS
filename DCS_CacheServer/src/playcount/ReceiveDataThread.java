@@ -34,7 +34,7 @@ public class ReceiveDataThread extends Thread {
 				strData = fromUClient.readUTF();
 				if(!strData.equals("EndInput") && !strData.equals("NewStart")){
 			//		System.out.println(strData);
-					timeStamp = GetNowTime.getNowTime();
+					timeStamp = GetCacheServerState.getNowTime();
 					userKey = userID + "-" + timeStamp;  // 以用户ID加时间戳作为Redis中的key
 					System.out.println("UserKey is " +  userKey);
 					RedisOperation.redisSetLine(userKey,strData); // 将userKey和原始数据按String类型key-value存入redis

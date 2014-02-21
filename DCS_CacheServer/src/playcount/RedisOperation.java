@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 public class RedisOperation {
 	public static Jedis jedis;
@@ -39,6 +40,7 @@ public class RedisOperation {
 	public static void RedisCon() {
 		jedis = new Jedis("localhost",6379); 
 		System.out.println("Connected to redis !");
+	//	JedisPool pool = new JedisPool();
 	}
 	
 	
