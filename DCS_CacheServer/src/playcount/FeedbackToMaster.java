@@ -41,7 +41,7 @@ public static void main(String[] srgs) {
 			Socket connectToMaster = new Socket(localIP,5700);
 			DataOutputStream toMaster = new DataOutputStream(connectToMaster.getOutputStream());
 			DataInputStream fromMaster = new DataInputStream(connectToMaster.getInputStream());
-			state = csCheckState();
+			state = CacheServerState.csCheckState();
 			toMaster.writeUTF(state);
 			toMaster.flush();
 			ack = fromMaster.readUTF();
@@ -58,9 +58,6 @@ public static void main(String[] srgs) {
 	}
 	
 	
-	// 检查本机的运行状态，并返回状态信息。
-	public static String csCheckState() {
-		return "1";  // 1表示正常运行；0表示负载较低；2表示内存消耗过大；3表示CPU消耗过大。
-	}
+
 
 }
