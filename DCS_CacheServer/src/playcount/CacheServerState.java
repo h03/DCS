@@ -61,10 +61,10 @@ public class CacheServerState {
 		m = getSysMemUse();
 		
 		if(howCome.equals("first")) type = "0";
-		else if(c < 0.25 && m < 0.25) type = "1";
-		else if(c < 0.50 && m < 0.50) type = "2";
-		else if(c < 0.75 && m < 0.80) type = "3";
-		else if(c < 1 && m < 1) type = "4";
+		else if(c <= 0.5 && m <= 0.25) type = "1";
+		else if(c <= 0.75 && m <= 0.5) type = "2";
+		else if(c <= 1.25 && m <= 0.8) type = "3";
+		else if(c > 1.25 || m > 0.8) type = "4";
 		else if (howCome.equals("offline")) type = "5";
 		System.out.println(type);
 

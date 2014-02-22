@@ -5,6 +5,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.Set;
 
 
 /* CacheServer向Master发送本地服务器的运行状态
@@ -50,6 +52,18 @@ public static void main(String[] srgs) {
 				fromMaster.close();
 				toMaster.close();
 				connectToMaster.close();
+			} else if(ack.equals("clients")){
+				System.out.println("需要将目前连接的用户表返回给Master！");
+				Set<String> clientInfo = RedisOperation.redisSmembers("clientSet");
+				Iterator<String> it = clientInfo.iterator();
+				int count = clientInfo.size();
+				toMaster.writeInt(count);
+				while(it.hasNext()){
+					toMaster.writeUTF(it.next());
+				}
+				
+			} else if(ack.equals("save")){
+				System.out.println("需要完成善后工作！将内存数据全部持久化！");
 			}
 			
 		} catch(IOException e) {
