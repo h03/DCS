@@ -47,6 +47,7 @@ public static void main(String[] srgs) {
 			toMaster.writeUTF(state);
 			toMaster.flush();
 			ack = fromMaster.readUTF();
+			
 			if(ack.equalsIgnoreCase("OK")){
 				System.out.println("已将状态发送给Master服务器！");
 				fromMaster.close();
@@ -54,24 +55,30 @@ public static void main(String[] srgs) {
 				connectToMaster.close();
 			} else if(ack.equals("clients")){
 				System.out.println("需要将目前连接的用户表返回给Master！");
-				Set<String> clientInfo = RedisOperation.redisSmembers("clientSet");
+				toMaster.writeUTF(localIP);  // 将set的key发送给master
+				
+				Set<String> clientInfo = RedisOperation.redisSmembers(localIP);
 				Iterator<String> it = clientInfo.iterator();
 				int count = clientInfo.size();
-				toMaster.writeInt(count);
+				toMaster.writeInt(count); // 将set的长度发送给master
 				while(it.hasNext()){
 					toMaster.writeUTF(it.next());
 				}
 				
+			} else if(ack.equals("wait")) {
+				System.out.println("cache服务器将不再接收新的请求，直到负载降级！");
 			} else if(ack.equals("save")){
 				System.out.println("需要完成善后工作！将内存数据全部持久化！");
-			}
+			}	
+			
+			fromMaster.close();
+			toMaster.close();
+			connectToMaster.close();
 			
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-
 
 }

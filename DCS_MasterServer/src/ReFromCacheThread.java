@@ -21,14 +21,18 @@ public class ReFromCacheThread extends Thread {
 		start();
 	}
 	
+	/*
+	 * 0表示新加入服务器；1表示低负载；2表示中负载；3表示高负载；4表示超高负载；5表示请求下线服务器
+	 */
+	
 	public void run() {
 		try {
 			String ack1 = "OK";
-			String ack2 = "clients";
-			String ack3 = "save";
+			String ack3 = "clients";
+			String ack4 = "wait";
+			String ack5 = "save";
 			String cacheState = null;
 			int count;
-			String uc;
 
 			cacheState = fromCache.readUTF();
 			if(cacheState.equals("0") || cacheState.equals("1") || cacheState.equals("2")) {
@@ -37,24 +41,25 @@ public class ReFromCacheThread extends Thread {
 				toCache.flush();
 			} else if(cacheState.equals("3")) {
 				System.out.println("The cache server is not OK !");
-				toCache.writeUTF(ack2);
+				toCache.writeUTF(ack3);
 				toCache.flush();
+				String key = null;
+				key = fromCache.readUTF();
 				count = fromCache.readInt();   // 将cache server发来的当前连接的客户端信息存入redis的clientSet中
 				String[] clients = new String[count];
 				for(int i=0; i < count; i++){
-					uc = fromCache.readUTF();
-					clients[i] = uc;
+					clients[i] = fromCache.readUTF();
 					count--;
 				}
-				RedisOperation.redisSaddGroup("clientSet", clients);
+				RedisOperation.redisSaddGroup(key, clients);
 				
 			} else if(cacheState.equals("4")){
 				System.out.println("The cache server is so bad !");
-				toCache.writeUTF(ack2);
+				toCache.writeUTF(ack4);
 				toCache.flush();
 			} else if(cacheState.equals("5")){
 				System.out.println("The cache server is going to be off !");
-				toCache.writeUTF(ack3);
+				toCache.writeUTF(ack5);
 				toCache.flush();
 				
 			}
