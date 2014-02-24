@@ -67,5 +67,6 @@
 	<classpathentry kind="lib" path="/home/ello/install/hbase-0.94.16/lib/velocity-1.7.jar"/>
 	<classpathentry kind="lib" path="/home/ello/install/hbase-0.94.16/lib/xmlenc-0.52.jar"/>
 	<classpathentry kind="lib" path="/home/ello/install/hbase-0.94.16/lib/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="lib" path="/home/ello/install/commons-pool2-2.1/commons-pool2-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

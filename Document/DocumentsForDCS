@@ -1,0 +1,12 @@
+一、DCS开发实现中的问题
+1、UserClient
+＊ 不能按正确的数据格式收到Master中redis publish的消息（目标存储节点改变命令）。
+
+2、MasterServer
+＊ 开发时不能正确构建redis连接池JedisPool，缺少依赖包或其他原因。
+＊ 还未实现消息队列服务。
+＊ 还未进行系统整合管理和运行测试。
+
+3、CacheServer
+＊ 开发时不能正确构建redis连接池JedisPool，缺少依赖包或其他原因。
+＊ 还未实现消息队列服务。
