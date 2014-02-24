@@ -40,7 +40,7 @@ public class SendStreamData {
 			toCache.flush();
 			reader = new BufferedReader(new FileReader(file));
 			int count = 1;
-			 while(count < 3) {
+			 while(count < 30) {
 				 if((tempData=reader.readLine())!=null) {
 					 toCache.writeUTF(tempData);
 					 toCache.flush();

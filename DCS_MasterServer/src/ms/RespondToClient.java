@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class RespondToClient {
+public class RespondToClient extends Thread{
 	
 /*
  * Master等待UserClient的询问请求
@@ -30,16 +30,24 @@ public class RespondToClient {
 	//	msPublishTargetIP("localhost");
 		msPubTargetIP("localhost");
 	}
+	
+	
+	public void run(){
+		try {
+			msRespondToClient();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void msRespondToClient() throws InterruptedException {
 		try {
-			System.out.println("正在连接新的客户端...");
+			System.out.println("Waiting for user client connection...");
 			ServerSocket serverSocket = new ServerSocket(5600);
 			Socket connectToClient = null;
 			while (true) {
 				connectToClient = serverSocket.accept();
 				new ReceiveFromClient(connectToClient);
-				Thread.sleep(1);
 			}
 			
 		} catch(IOException e) {

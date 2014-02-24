@@ -9,10 +9,19 @@ import java.net.Socket;
  * 与CacheServer中的FeedbackToMaster对应。
  */
 
-public class ReceiveFromCache {
+public class ReceiveFromCache extends Thread{
 	
 	public static void main(String[] args) throws InterruptedException{
 	     msReceiveFromCache();
+	}
+	
+	
+	public void run(){
+		 try {
+			msReceiveFromCache();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void msReceiveFromCache() throws InterruptedException {
@@ -24,13 +33,11 @@ public class ReceiveFromCache {
 			while(true) {
 				connectToCache = serverSocket.accept();
 				new ReFromCacheThread(connectToCache);
-				Thread.sleep(1000);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
-	
 
 }

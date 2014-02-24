@@ -10,10 +10,14 @@ import java.net.Socket;
  * 与UserClient中的SendStreamData类对应
  */
 
-public class ReceiveStreamData {
+public class ReceiveStreamData extends Thread {
 	
 	public static void main(String[] args) {
 		RedisOperation.RedisCon();
+		csReceiveStreamData();
+	}
+	
+	public void run() {
 		csReceiveStreamData();
 	}
 

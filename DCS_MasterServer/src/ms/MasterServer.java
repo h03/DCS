@@ -1,5 +1,9 @@
 package ms;
 
+import java.awt.Toolkit;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MasterServer {
 
 	/*
@@ -25,14 +29,18 @@ public class MasterServer {
 	 */
 	
 	public static void main(String[] args) throws InterruptedException {
-		RedisOperation redis = new RedisOperation();
-		redis.RedisCon();
+		// 连接redis
+		RedisOperation masterRedis = new RedisOperation();
+		masterRedis.RedisCon();
+		// 开启侦听cache server的线程
 		ReceiveFromCache reFromCache = new ReceiveFromCache();
-		reFromCache.msReceiveFromCache(); 
+		reFromCache.start(); 
 		System.out.println("等待cache连接...");
-		RespondToClient respondToclient = new RespondToClient();
-		RespondToClient.msRespondToClient();
+		// 开启侦听user client的线程
+		RespondToClient respondToClient = new RespondToClient();
+		respondToClient.start();
 		System.out.println("等待user client连接...");
+		
 
 	}
 

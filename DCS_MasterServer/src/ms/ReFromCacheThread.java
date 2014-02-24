@@ -66,7 +66,7 @@ public class ReFromCacheThread extends Thread {
 
 				if( lastType == null ){
 					RedisOperation.redisSetLine( cacheIP,"lowCache"); // 保存为string类型的key-value供client询问
-					RedisOperation.redisRpushLine("lowCache", cacheIP);// 保存在newcache的list中供出队服务
+					RedisOperation.redisRpushLine("lowCache", cacheIP);// 保存在lowCache的list中供出队服务
 				} else if (lastType.equals("lowCache")){
 					
 				} else {
@@ -83,7 +83,7 @@ public class ReFromCacheThread extends Thread {
 				
 				if( lastType == null ){
 					RedisOperation.redisSetLine( cacheIP,"mediumCache"); // 保存为string类型的key-value供client询问
-					RedisOperation.redisRpushLine("mediumCache", cacheIP);// 保存在newcache的list中供出队服务
+					RedisOperation.redisRpushLine("mediumCache", cacheIP);// 保存在mediumCache的list中供出队服务
 				} else if (lastType.equals("mediumCache")){
 					
 				} else {
@@ -100,7 +100,7 @@ public class ReFromCacheThread extends Thread {
 
 				if( lastType == null ){
 					RedisOperation.redisSetLine( cacheIP,"highCache"); // 保存为string类型的key-value供client询问
-					RedisOperation.redisRpushLine("highCache", cacheIP);// 保存在newcache的list中供出队服务
+					RedisOperation.redisRpushLine("highCache", cacheIP);// 保存在highCache的list中将暂不提供出队服务
 				} else if (lastType.equals("highCache")){
 					
 				} else {
@@ -128,13 +128,13 @@ public class ReFromCacheThread extends Thread {
 				System.out.println("The cache server is so bad !");
 
 				if( lastType == null ){
-					RedisOperation.redisSetLine( cacheIP,"highCache"); // 保存为string类型的key-value供client询问
-					RedisOperation.redisRpushLine("highCache", cacheIP);// 保存在newcache的list中供出队服务
-				} else if (lastType.equals("highCache")){
+					RedisOperation.redisSetLine( cacheIP,"overCache"); // 保存为string类型的key-value供client询问
+					RedisOperation.redisRpushLine("overCache", cacheIP);// 保存在overCache的list中将不会提供出队服务
+				} else if (lastType.equals("overCache")){
 					
 				} else {
-					RedisOperation.redisSetLine(cacheIP,"highCache"); 
-					RedisOperation.redisRpushLine("highCache", cacheIP);
+					RedisOperation.redisSetLine(cacheIP,"overCache"); 
+					RedisOperation.redisRpushLine("overCache", cacheIP);
 					RedisOperation.redisLrem(lastType, 1, cacheIP);
 				}
 				RedisOperation.redisLpushLine("overCache", cacheIP);
@@ -146,7 +146,7 @@ public class ReFromCacheThread extends Thread {
 
 				if( lastType == null ){
 					RedisOperation.redisSetLine( cacheIP,"notAvailCache"); // 保存为string类型的key-value供client询问
-					RedisOperation.redisRpushLine("notAvailCache", cacheIP);// 保存在newcache的list中供出队服务
+					RedisOperation.redisRpushLine("notAvailCache", cacheIP);// 保存在notAvailCache的list中将在一定时间后被移出数据库
 				} else if (lastType.equals("notAvailCache")){
 					
 				} else {

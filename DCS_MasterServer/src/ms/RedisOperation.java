@@ -246,7 +246,7 @@ public class RedisOperation {
 			if(jedis.exists(key) && jedis.type(key).equals("list")){
 			Long getResult = null;
 			getResult = jedis.lrem(key, count, value);
-			System.out.println("Delete the value " + getResult + "time(s).");
+			System.out.println("Delete the value " + getResult + " time(s).");
 			}
 			else {
 				System.out.println("The key is not exist or not valid !");

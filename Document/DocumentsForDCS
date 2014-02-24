@@ -1,6 +1,6 @@
 一、DCS开发实现中的问题
 1、UserClient
-＊ 不能按正确的数据格式收到Master中redis publish的消息（目标存储节点改变命令）。
+＊ 不能按正确的数据格式收到Master中redis publish的消息（目标存储节点改变命令）。————》取消使用redis的pub/sub功能。改为client每隔一段时间向master确认目标存储节点。
 
 2、MasterServer
 ＊ 开发时不能正确构建redis连接池JedisPool，缺少依赖包或其他原因。

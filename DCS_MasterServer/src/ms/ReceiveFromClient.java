@@ -25,7 +25,7 @@ public class ReceiveFromClient extends Thread {
 	
 	
 	public static String msFindTargetIP(String ClientIP) {
-		return "192.168.0.103";
+		return "127.0.0.1";
 	}
 	
 	
@@ -37,7 +37,7 @@ public class ReceiveFromClient extends Thread {
 			targetIP = msFindTargetIP(clientIP);
 			toUClient.writeUTF(targetIP);
 			toUClient.flush();
-			System.out.println("已返回地址为"+ clientIP +"的目标存储节点！");
+			System.out.println("已向客户端: " + clientIP + " 返回目标存储节点！");
 			
 			fromUClient.close();
 			toUClient.close();
