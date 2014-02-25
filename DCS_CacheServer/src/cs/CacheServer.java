@@ -28,8 +28,9 @@ public class CacheServer {
 		ReceiveStreamData receData = new ReceiveStreamData();
 		receData.start();
 		System.out.println("开启侦听user client...");
-	    final Timer timer = new Timer();
-		TimerTask timerTask = new TimerTask() {
+		// 开启定时向master发送状态信息的任务
+	    final Timer timer1 = new Timer();
+		TimerTask timerTask1 = new TimerTask() {
 			int count = 1;		
 			public void run() {
 				FeedbackToMaster feedback = new FeedbackToMaster();
@@ -39,17 +40,38 @@ public class CacheServer {
 				if(count > 10){
 					System.out.println("timer canceled.");
 					this.cancel();
-					timer.cancel();
+					timer1.cancel();
 				}
 			}
 		};	
 		// 设计定时器，100毫秒后启动计时器任务，每隔5000毫秒再启动一次
-		long startTime = 100;
-		long interval = 5000;
-		timer.schedule(timerTask, startTime, interval);  // cache server每隔一定时间像master发送其状态信息
-	}
+		long startTime1 = 100;
+		long interval1 = 5000;
+		timer1.schedule(timerTask1, startTime1, interval1);  // cache server每隔一定时间向master发送其状态信息
+
+	// 开启定时检查redis数据库中的数据量，一旦到达指定阀值则向hbase批量写入一次数据
+    final Timer timer2 = new Timer();
+	TimerTask timerTask2 = new TimerTask() {
+		int count = 1;		
+		PersistStoreData persistData = new PersistStoreData();
+		public void run() {
+			
+			persistData.run();
+			System.out.println("第 " + count + " 次检查redis数据库中的kugou数据量！");
+			count++;
+			if(count > 10){
+				System.out.println("timer canceled.");
+				this.cancel();
+				timer2.cancel();
+			}
+		}
+	};	
+	// 设计定时器，100毫秒后启动计时器任务，每隔5000毫秒再启动一次
+	long startTime2 = 1000;
+	long interval2 = 60000;
+	timer2.schedule(timerTask2, startTime2, interval2);  // cache server每隔一定时间向master发送其状态信息
 	
-	
+}
 	
 
 

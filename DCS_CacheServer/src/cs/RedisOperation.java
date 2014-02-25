@@ -592,6 +592,7 @@ public class RedisOperation {
 	}
 	
 	
+	
 	// 删除当前数据库的所有key，此方法不会失败。慎用
 	public static void redisDeleDB() {
 		jedis.flushDB();

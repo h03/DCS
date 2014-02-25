@@ -17,7 +17,9 @@ import org.apache.hadoop.hbase.client.Put;
  * 将Redis中的数据批量存入HBase中
  */
 
-public class PersistStoreData {
+public class PersistStoreData extends Thread {
+	
+	private static long interval = System.currentTimeMillis();
 	
 	public static void main(String[] args) throws IOException {
 		RedisOperation.RedisCon();
@@ -26,6 +28,26 @@ public class PersistStoreData {
 	//	csPersistStoreData(index,tableName);
 		
 		csPersistDataInOrder(0,"soset",6,tableName);
+	}
+	
+	
+	public void run(){
+		long current = System.currentTimeMillis();
+		interval = current - interval;
+		try {
+			if(RedisOperation.redisZcard("keySet")>10){
+				csPersistDataInOrder(0, "keySet", 10, "test");
+				interval = current;
+			}	
+			else if(interval>1000*300){
+				long num = RedisOperation.redisZcard("keySet");
+				csPersistDataInOrder(0, "keySet", num, "test");
+				interval = current;
+			} 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// 将指定的一个redis数据库中的数据批量存入hbase中
@@ -66,7 +88,7 @@ public class PersistStoreData {
 
 	
 	// 按keySet中的时序顺序将redis数据库中的一组指定key-value数据批量存入hbase中
-	public static void csPersistDataInOrder(int index, String keySet, int number, String tableName) throws IOException {
+	public static void csPersistDataInOrder(int index, String keySet, long number, String tableName) throws IOException {
 		RedisOperation.jedis.select(index);
 		Set<String> set = RedisOperation.jedis.zrange(keySet, 0, number-1);
 		
@@ -86,7 +108,7 @@ public class PersistStoreData {
 			 System.out.println(userRowKey + ":" + value); 
 		}
 		
-        hbaseOpt.hbaseBatchPut(tableName, batchPut);
+        hbaseOpt.hbaseBatchPut(tableName, batchPut);    // 这之后需要增加一个为刚被删除的redis数据设置TTL，或将数据成组从redis中删除以留出内存空间
         System.out.println("Insert " + number + " data !");
      
 		
